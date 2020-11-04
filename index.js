@@ -21,13 +21,24 @@ const fi = (function() {
       return newArr
     },
 
-    reduce: function(collection, callback, acc) {
-      let arr = Array.isArray(collection) ? [...collection] : Object.values(collection)
-      let output = acc ? acc : arr.shift()
-      for(let i = 0; i < arr.length; i++){
-        output = callback(output, arr[i], arr)
+    // reduce: function(collection, callback, acc) {
+    //   let arr = Array.isArray(collection) ? [...collection] : Object.values(collection)
+    //   let output = acc ? acc : arr.shift()
+    //   for(let i = 0; i < arr.length; i++){
+    //     output = callback(output, arr[i], arr)
+    //   }
+    //   return output
+    // },
+
+    reduce: function(collect, f, total) {
+      let newArray = [...collect]
+      if (!total){
+        total = newArray.shift()
       }
-      return output
+      for (let i = 0; i<newArray.length; i++){
+        total = f(total, newArray[i], newArray) 
+      }
+      return total
     },
     
     find: function(collection, predicate) {
